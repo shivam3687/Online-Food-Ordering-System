@@ -1,0 +1,32 @@
+/* Full page background */
+.static-page {
+  min-height: 100vh;
+  background: #f9f9f9;
+  padding: 80px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Center card */
+.static-page-content {
+  max-width: 900px;
+  margin: auto;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Title */
+.static-page-content h1 {
+  font-size: 36px;
+  color: #ff6347; /* Tomato theme */
+  margin-bottom: 20px;
+}
+
+/* Text */
+.static-page-content p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 15px;
+}

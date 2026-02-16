@@ -1,0 +1,146 @@
+.place-order {
+  display: flex;
+  gap: 40px;
+  margin: 40px auto;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+/* ===========================
+   LEFT SIDE – DELIVERY FORM
+=========================== */
+.place-order-left {
+  flex: 1;
+}
+
+.place-order-left .title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.place-order-left input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+}
+
+.multi-fields {
+  display: flex;
+  gap: 15px;
+}
+
+/* ===========================
+   RIGHT SIDE – CART TOTAL
+=========================== */
+.place-order-right {
+  flex: 1;
+}
+
+.cart-total {
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.cart-total h2 {
+  margin-bottom: 20px;
+}
+
+.cart-total-details {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.cart-total hr {
+  border: none;
+  height: 1px;
+  background: #ddd;
+  margin: 10px 0;
+}
+
+/* ===========================
+   PAYMENT METHOD SECTION
+=========================== */
+.payment-method {
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.payment-method h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+/* Payment option box */
+.payment-method label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  background: #fff;
+  font-size: 14px;
+}
+
+/* Hover effect */
+.payment-method label:hover {
+  border-color: #ff4d4f;
+  background: #fff5f5;
+}
+
+/* Radio button */
+.payment-method input[type="radio"] {
+  accent-color: #ff4d4f;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+/* Selected payment */
+.payment-method input[type="radio"]:checked + span {
+  font-weight: 600;
+}
+
+/* ===========================
+   PLACE ORDER BUTTON
+=========================== */
+.cart-total button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cart-total button:hover {
+  background: #e6393b;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+=========================== */
+@media (max-width: 768px) {
+  .place-order {
+    flex-direction: column;
+  }
+
+  .multi-fields {
+    flex-direction: column;
+    gap: 0;
+  }
+}
