@@ -8,16 +8,18 @@ const FoodDisplay = ({ category }) => {
   const { food_list, search } = useContext(StoreContext);
 
   // ✅ SAFE filter logic (no crash)
-  const filteredFood = food_list.filter((item) => {
+  const filteredFood = (food_list || []).filter((item) => {
 
-    const matchesCategory =
-      category === "All" || category === item.category;
+  const matchesCategory =
+    category === "All" || category === item?.category;
 
-    const matchesSearch =
-      (item?.name || "").toLowerCase().includes((search || "").toLowerCase());
+  const matchesSearch =
+    (item?.name || "")
+      .toLowerCase()
+      .includes((search || "").toLowerCase());
 
-    return matchesCategory && matchesSearch;
-  });
+  return matchesCategory && matchesSearch;
+});
 
   return (
     <div className='food-display' id='food-display'>
