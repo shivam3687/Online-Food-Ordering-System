@@ -7,20 +7,21 @@ const StoreContextProvider = (props) => {
 
     const [cartItems, setCartItems] = useState({});
 
-    // ✅ SAFE URL (IMPORTANT FIX)
+    // ✅ SAFE URL (fallback included)
     const url = import.meta.env.VITE_API_URL || "https://online-food-ordering-w3br.onrender.com";
 
     const [token, setToken] = useState("");
     const [food_list, setFoodList] = useState([]);
     const [search, setSearch] = useState("");
 
-    // ✅ Add to Cart (SAFE)
+    // ✅ ADD TO CART (CRASH SAFE)
     const addToCart = async (itemId) => {
         try {
-            setCartItems((prev) => ({
-                ...prev,
-                [itemId]: prev[itemId] ? prev[itemId] + 1 : 1
-            }));
+            setCartItems((prev) => {
+                const updated = { ...prev };
+                updated[itemId] = updated[itemId] ? updated[itemId] + 1 : 1;
+                return updated;
+            });
 
             if (token) {
                 await axios.post(`${url}/api/cart/add`, { itemId }, { headers: { token } });
@@ -30,13 +31,20 @@ const StoreContextProvider = (props) => {
         }
     };
 
-    // ✅ Remove from Cart (SAFE)
+    // ✅ REMOVE FROM CART (SAFE DELETE)
     const removeFromCart = async (itemId) => {
         try {
-            setCartItems((prev) => ({
-                ...prev,
-                [itemId]: prev[itemId] - 1
-            }));
+            setCartItems((prev) => {
+                const updated = { ...prev };
+
+                if (updated[itemId] > 1) {
+                    updated[itemId] -= 1;
+                } else {
+                    delete updated[itemId];   // 🔥 IMPORTANT FIX
+                }
+
+                return updated;
+            });
 
             if (token) {
                 await axios.post(`${url}/api/cart/remove`, { itemId }, { headers: { token } });
@@ -46,7 +54,7 @@ const StoreContextProvider = (props) => {
         }
     };
 
-    // ✅ Total Cart
+    // ✅ TOTAL AMOUNT SAFE
     const getTotalCartAmount = () => {
         let totalAmount = 0;
 
@@ -62,14 +70,10 @@ const StoreContextProvider = (props) => {
         return totalAmount;
     };
 
-    // ✅ Fetch Food (SAFE + DEBUG)
+    // ✅ FETCH FOOD (SAFE)
     const fetchFoodList = async () => {
         try {
-            console.log("API URL:", url);
-
             const response = await axios.get(`${url}/api/food/list`);
-
-            console.log("FOOD DATA:", response.data);
 
             if (response.data.success) {
                 setFoodList(response.data.data);
@@ -79,7 +83,7 @@ const StoreContextProvider = (props) => {
         }
     };
 
-    // ✅ Load Cart
+    // ✅ LOAD CART SAFE
     const loadCartData = async (token) => {
         try {
             const response = await axios.post(
@@ -87,13 +91,15 @@ const StoreContextProvider = (props) => {
                 {},
                 { headers: { token } }
             );
-            setCartItems(response.data.cartData);
+
+            if (response.data.cartData) {
+                setCartItems(response.data.cartData);
+            }
         } catch (error) {
             console.log("Cart load error:", error);
         }
     };
 
-    // ✅ Initial Load
     useEffect(() => {
         async function loadData() {
             await fetchFoodList();

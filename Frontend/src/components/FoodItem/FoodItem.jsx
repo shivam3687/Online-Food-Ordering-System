@@ -4,12 +4,7 @@ import { StoreContext } from '../../context/StoreContext'
 
 const FoodItem = ({ id, name, price, description, image }) => {
 
-  const { 
-    url = "https://online-food-ordering-w3br.onrender.com",
-    cartItems,
-    addToCart,
-    removeFromCart
-  } = useContext(StoreContext);
+  const { url, cartItems, addToCart, removeFromCart } = useContext(StoreContext);
 
   const imageUrl = image
     ? `${url}/images/${image}`
@@ -22,45 +17,30 @@ const FoodItem = ({ id, name, price, description, image }) => {
         <img
           className='food-item-image'
           src={imageUrl}
-          alt={name || "food"}
+          alt={name}
           onError={(e) => {
             e.target.src = "https://via.placeholder.com/150";
           }}
         />
 
-        {/* ✅ GREEN ADD BUTTON */}
+        {/* ✅ ADD BUTTON */}
         {!cartItems?.[id] ? (
-          <img
-            className="add"
-            onClick={() => addToCart(id)}
-            src="https://cdn-icons-png.flaticon.com/512/992/992651.png"
-            alt="add"
-          />
+          <div className="add-btn" onClick={() => addToCart(id)}>
+            +
+          </div>
         ) : (
           <div className="food-item-counter">
-            <img
-              onClick={() => removeFromCart(id)}
-              src="https://cdn-icons-png.flaticon.com/512/1828/1828906.png"
-              alt="remove"
-            />
+            <button onClick={() => removeFromCart(id)}>-</button>
             <p>{cartItems[id]}</p>
-            <img
-              onClick={() => addToCart(id)}
-              src="https://cdn-icons-png.flaticon.com/512/992/992651.png"
-              alt="add"
-            />
+            <button onClick={() => addToCart(id)}>+</button>
           </div>
         )}
       </div>
 
       <div className="food-item-info">
-        <p className="food-item-name">{name || "No Name"}</p>
-        <p className="food-item-desc">
-          {description || "No description"}
-        </p>
-        <p className="food-item-price">
-          ₹{price || 0}
-        </p>
+        <p className="food-item-name">{name}</p>
+        <p className="food-item-desc">{description}</p>
+        <p className="food-item-price">₹{price}</p>
       </div>
 
     </div>
