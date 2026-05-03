@@ -7,13 +7,14 @@ const FoodDisplay = ({ category }) => {
 
   const { food_list, search } = useContext(StoreContext);
 
-  // ✅ filter logic (category + search)
+  // ✅ SAFE filter logic (no crash)
   const filteredFood = food_list.filter((item) => {
+
     const matchesCategory =
       category === "All" || category === item.category;
 
     const matchesSearch =
-      item.name.toLowerCase().includes(search.toLowerCase());
+      (item?.name || "").toLowerCase().includes((search || "").toLowerCase());
 
     return matchesCategory && matchesSearch;
   });
@@ -23,15 +24,15 @@ const FoodDisplay = ({ category }) => {
       <h2>Top dishes near you</h2>
 
       <div className="food-display-list">
-        {filteredFood.length > 0 ? (
-          filteredFood.map((item, index) => (
+        {filteredFood && filteredFood.length > 0 ? (
+          filteredFood.map((item) => (
             <FoodItem
-              key={index}
+              key={item._id}   // ✅ FIX: index hata diya (important)
               id={item._id}
-              name={item.name}
-              price={item.price}
-              description={item.description}
-              image={item.image}
+              name={item.name || "No Name"}
+              price={item.price || 0}
+              description={item.description || ""}
+              image={item.image || ""}
             />
           ))
         ) : (
