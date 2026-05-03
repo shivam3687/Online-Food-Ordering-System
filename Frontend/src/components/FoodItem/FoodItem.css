@@ -50,18 +50,18 @@
   margin: 8px 0 0 0;
 }
 
-.food-item-info img {
-  width: 60px;
-  margin: 5px 0;
-}
-
+/* 🟢 GREEN ADD BUTTON */
 .food-item-img-container .add {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   position: absolute;
-  bottom: 15px;
-  right: 15px;
+  bottom: 12px;
+  right: 12px;
   cursor: pointer;
+  background-color: #28a745;
+  border-radius: 50%;
+  padding: 6px;
+  object-fit: contain;
   transition: transform 0.3s;
 }
 
@@ -69,22 +69,23 @@
   transform: scale(1.1);
 }
 
+/* ✅ COUNTER (same size feel) */
 .food-item-counter {
   position: absolute;
-  bottom: 15px;
-  right: 15px;
+  bottom: 12px;
+  right: 12px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background-color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 4px 8px;
+  border-radius: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .food-item-counter img {
-  width: 25px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
   cursor: pointer;
   transition: transform 0.2s;
 }
@@ -95,7 +96,7 @@
 
 .food-item-counter p {
   font-weight: bold;
-  font-size: 14px;
-  margin: 0 5px;
+  font-size: 13px;
+  margin: 0 4px;
   color: #262626;
 }

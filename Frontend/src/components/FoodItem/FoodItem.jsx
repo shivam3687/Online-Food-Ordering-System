@@ -28,22 +28,33 @@ const FoodItem = ({ id, name, price, description, image }) => {
           }}
         />
 
-        {/* ✅ ADD TO CART BUTTON */}
+        {/* ✅ GREEN ADD BUTTON */}
         {!cartItems?.[id] ? (
-          <button className="add-btn" onClick={() => addToCart(id)}>
-            Add +
-          </button>
+          <img
+            className="add"
+            onClick={() => addToCart(id)}
+            src="https://cdn-icons-png.flaticon.com/512/992/992651.png"
+            alt="add"
+          />
         ) : (
-          <div className="counter">
-            <button onClick={() => removeFromCart(id)}>-</button>
-            <span>{cartItems[id]}</span>
-            <button onClick={() => addToCart(id)}>+</button>
+          <div className="food-item-counter">
+            <img
+              onClick={() => removeFromCart(id)}
+              src="https://cdn-icons-png.flaticon.com/512/1828/1828906.png"
+              alt="remove"
+            />
+            <p>{cartItems[id]}</p>
+            <img
+              onClick={() => addToCart(id)}
+              src="https://cdn-icons-png.flaticon.com/512/992/992651.png"
+              alt="add"
+            />
           </div>
         )}
       </div>
 
       <div className="food-item-info">
-        <p>{name || "No Name"}</p>
+        <p className="food-item-name">{name || "No Name"}</p>
         <p className="food-item-desc">
           {description || "No description"}
         </p>
