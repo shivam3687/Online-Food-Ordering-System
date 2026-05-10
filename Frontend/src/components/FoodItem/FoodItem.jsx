@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import './FoodItem.css'
 import { StoreContext } from '../../context/StoreContext'
+import add_icon_white from '../../assets/add_icon_white.png'
 
 const FoodItem = ({ id, name, price, description, image }) => {
 
@@ -14,6 +15,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
     <div className='food-item'>
 
       <div className="food-item-img-container">
+
         <img
           className='food-item-image'
           src={imageUrl}
@@ -23,11 +25,14 @@ const FoodItem = ({ id, name, price, description, image }) => {
           }}
         />
 
-        {/* ✅ ADD BUTTON */}
+        {/* ADD BUTTON */}
         {!cartItems?.[id] ? (
-          <div className="add-btn" onClick={() => addToCart(id)}>
-            +
-          </div>
+          <img
+            className="add"
+            onClick={() => addToCart(id)}
+            src={add_icon_white}
+            alt="add"
+          />
         ) : (
           <div className="food-item-counter">
             <button onClick={() => removeFromCart(id)}>-</button>
@@ -35,6 +40,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
             <button onClick={() => addToCart(id)}>+</button>
           </div>
         )}
+
       </div>
 
       <div className="food-item-info">
