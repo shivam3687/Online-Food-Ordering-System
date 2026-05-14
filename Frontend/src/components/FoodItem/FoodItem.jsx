@@ -25,19 +25,24 @@ const FoodItem = ({ id, name, price, description, image }) => {
           }}
         />
 
-        {/* ADD BUTTON */}
+        {/* ✅ ADD BUTTON */}
         {!cartItems?.[id] ? (
-          <img
-            className="add"
-            onClick={() => addToCart(id)}
-            src={add_icon_white}
-            alt="add"
-          />
+          <div className="add-btn" onClick={() => addToCart(id)}>
+            +
+          </div>
         ) : (
           <div className="food-item-counter">
-            <button onClick={() => removeFromCart(id)}>-</button>
+            <img
+              onClick={() => removeFromCart(id)}
+              src="https://cdn-icons-png.flaticon.com/512/1828/1828906.png"
+              alt="remove"
+            />
             <p>{cartItems[id]}</p>
-            <button onClick={() => addToCart(id)}>+</button>
+            <img
+              onClick={() => addToCart(id)}
+              src="https://cdn-icons-png.flaticon.com/512/992/992651.png"
+              alt="add"
+            />
           </div>
         )}
 
