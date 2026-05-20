@@ -1,14 +1,15 @@
 import React, { useContext } from 'react'
 import './FoodItem.css'
 import { StoreContext } from '../../context/StoreContext'
-import add_icon_white from '../../assets/add_icon_white.png'
 
 const FoodItem = ({ id, name, price, description, image }) => {
 
   const { url, cartItems, addToCart, removeFromCart } = useContext(StoreContext);
 
   const imageUrl = image
-    ? `${url}/images/${image}`
+    ? image.startsWith("http")
+      ? image
+      : `${url}/images/${image}`
     : "https://via.placeholder.com/150";
 
   return (
@@ -21,28 +22,33 @@ const FoodItem = ({ id, name, price, description, image }) => {
           src={imageUrl}
           alt={name}
           onError={(e) => {
+            e.target.onerror = null;
             e.target.src = "https://via.placeholder.com/150";
           }}
         />
 
         {/* ✅ ADD BUTTON */}
         {!cartItems?.[id] ? (
-          <div className="add-btn" onClick={() => addToCart(id)}>
+          <button className="add-btn" type="button" onClick={() => addToCart(id)}>
             +
-          </div>
+          </button>
         ) : (
           <div className="food-item-counter">
-            <img
+            <button
+              type="button"
               onClick={() => removeFromCart(id)}
-              src="https://cdn-icons-png.flaticon.com/512/1828/1828906.png"
-              alt="remove"
-            />
+              aria-label="Remove one"
+            >
+              -
+            </button>
             <p>{cartItems[id]}</p>
-            <img
+            <button
+              type="button"
               onClick={() => addToCart(id)}
-              src="https://cdn-icons-png.flaticon.com/512/992/992651.png"
-              alt="add"
-            />
+              aria-label="Add one"
+            >
+              +
+            </button>
           </div>
         )}
 

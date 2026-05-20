@@ -8,7 +8,7 @@ const StoreContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({});
 
     // ✅ SAFE URL (fallback included)
-    const url = import.meta.env.VITE_API_URL || "https://online-food-ordering-w3br.onrender.com";
+    const url = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
     const [token, setToken] = useState("");
     const [food_list, setFoodList] = useState([]);
@@ -83,6 +83,12 @@ const StoreContextProvider = (props) => {
         }
     };
 
+    const clearAuthData = () => {
+        localStorage.removeItem("token");
+        setToken("");
+        setCartItems({});
+    };
+
     // ✅ LOAD CART SAFE
     const loadCartData = async (token) => {
         try {
@@ -97,6 +103,9 @@ const StoreContextProvider = (props) => {
             }
         } catch (error) {
             console.log("Cart load error:", error);
+            if (error.response?.status === 401) {
+                clearAuthData();
+            }
         }
     };
 
