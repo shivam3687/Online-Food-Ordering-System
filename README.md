@@ -6,13 +6,6 @@ Designed with real-world scalability in mind, this project showcases production-
 
 ---
 
-## 🌐 Live Demo
-
-🔗 Frontend: https://foodflow-by-shivam.netlify.app/  
-🔗 Backend API: (Deploy on Render / Railway recommended)
-
----
-
 ## ✨ Key Features
 
 ### 👤 User Panel
