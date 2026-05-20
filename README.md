@@ -1,196 +1,234 @@
 # 🍽️ Online Food Ordering System
 
-A full-stack MERN (MongoDB, Express, React, Node.js) web application that delivers a seamless food ordering experience — from browsing menus to secure payments.
-
-Designed with real-world scalability in mind, this project showcases production-level architecture, authentication, payment integration, and admin management.
-
----
-
-## ✨ Key Features
-
-### 👤 User Panel
-- 🔐 JWT-based Authentication (Login / Signup)
-- 🍔 Browse food items by category
-- 🔎 Search functionality
-- 🛒 Add / Remove items from cart
-- 💳 Secure Stripe payment integration
-- 💵 Cash on Delivery (COD) option
-- 📦 Order placement & tracking
-- 📜 Order history
+A complete MERN web application with separate User, Admin, and Backend services.
+This repository supports local development and Render deployment for all three services.
 
 ---
 
-### 🛠️ Admin Panel
-- ➕ Add new food items
-- 🖼️ Upload food images (Multer)
-- ❌ Delete food items
-- 📦 Manage all orders
-- 🔄 Update order status
-  - Processing
-  - Out for Delivery
-  - Delivered
+## 🌟 What’s inside
+
+- `Backend/` — Express API with MongoDB, authentication, Stripe, and image upload support
+- `Frontend/` — React user-facing website built with Vite
+- `admin/` — React admin dashboard to manage menu items and orders
+- `render.yaml` — Render deployment manifest for Backend, Frontend, and Admin
+- `.env.example` files in each service for environment variable setup
 
 ---
 
-## 🏗️ Project Structure
+## 🚀 Project Features
 
-Online_Food_Ordering/
+### User App
+- JWT authentication (login/signup)
+- Browse food items by category
+- Search food menu
+- Add/remove items from cart
+- Stripe payment flow
+- Cash on Delivery option
+- View order status and history
 
-├── Backend/      # Node.js + Express + MongoDB API  
-├── Frontend/     # React (Vite) User Interface  
-├── admin/        # Admin Dashboard (React)  
-└── README.md  
+### Admin App
+- Add new food items
+- Upload food images using Multer
+- Delete menu items
+- View and update orders
+- Change order status
 
----
-
-## ⚙️ Tech Stack
-
-### 🚀 Frontend
-- React.js (Vite)
-- CSS
-- Axios
-- React Router
-
-### 🔧 Backend
-- Node.js
-- Express.js
-- MongoDB + Mongoose
-- JWT Authentication
-- Stripe Payment Gateway
-- Multer (Image Upload)
-- CORS
-- dotenv
+### Backend API
+- MongoDB Atlas-ready database connection
+- Secure environment variable usage
+- CORS configured for deployed frontend/admin
+- Uses `process.env.PORT` and `process.env.MONGODB_URI`
 
 ---
 
-## 🔐 Authentication & Security
+## 📁 Repository Structure
 
-- JSON Web Token (JWT) authentication
-- Token stored securely in localStorage
-- Protected routes for sensitive actions
-- Backend validation for all APIs
+```
+ONLINE FOOD ORDERING WEBSITE/
+├── Backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── uploads/
+│   ├── package.json
+│   ├── server.js
+│   └── .env.example
+├── Frontend/
+│   ├── public/
+│   ├── src/
+│   ├── package.json
+│   ├── .env
+│   └── .env.example
+├── admin/
+│   ├── public/
+│   ├── src/
+│   ├── package.json
+│   ├── .env.example
+│   └── ...
+├── render.yaml
+└── README.md
+```
 
 ---
 
-## 💳 Payment Integration
+## ✅ Local Development Setup
 
-- Integrated Stripe Payment Gateway
+### 1. Clone the repository
 
-Supports:
-- Online Payment
-- Cash on Delivery (COD)
+```bash
+git clone https://github.com/shivam3687/Online_Food_Ordering.git
+cmpd "d:\Desktop\ONLINE FOOD ORDERING WEBSITE (2)\ONLINE FOOD ORDERING WEBSITE"
+```
 
-- Payment verification system for order confirmation
+### 2. Backend
+
+```bash
+cd Backend
+npm install
+npm run dev
+```
+
+Create `Backend/.env` from `Backend/.env.example`:
+
+```env
+PORT=4000
+MONGODB_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_jwt_secret_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+FRONTEND_URL=http://localhost:5173
+ADMIN_URL=http://localhost:4173
+```
+
+> `FRONTEND_URL` and `ADMIN_URL` are used for CORS and Stripe redirect origins.
+
+### 3. Frontend
+
+```bash
+cd ../Frontend
+npm install
+npm run dev
+```
+
+Create `Frontend/.env` from `Frontend/.env.example`:
+
+```env
+VITE_BACKEND_URL=http://localhost:4000
+```
+
+### 4. Admin
+
+```bash
+cd ../admin
+npm install
+npm run dev
+```
+
+Create `admin/.env` from `admin/.env.example`:
+
+```env
+VITE_BACKEND_URL=http://localhost:4000
+```
+
+---
+
+## 🌍 Render Deployment
+
+This project includes `render.yaml` to deploy all services on Render.
+
+### Backend service
+- Root: `Backend`
+- Environment: `Node`
+- Build command: `npm install`
+- Start command: `npm start`
+- Env vars:
+  - `MONGODB_URI`
+  - `STRIPE_SECRET_KEY`
+  - `FRONTEND_URL=https://<your-frontend-service>.onrender.com`
+  - `ADMIN_URL=https://<your-admin-service>.onrender.com`
+
+### Frontend service
+- Root: `Frontend`
+- Environment: `Static Site`
+- Build command: `npm install && npm run build`
+- Publish directory: `dist`
+- Env var:
+  - `VITE_BACKEND_URL=https://<your-backend-service>.onrender.com`
+
+### Admin service
+- Root: `admin`
+- Environment: `Static Site`
+- Build command: `npm install && npm run build`
+- Publish directory: `dist`
+- Env var:
+  - `VITE_BACKEND_URL=https://<your-backend-service>.onrender.com`
+
+---
+
+## 🔧 Backend Environment Variables
+
+From `Backend/.env.example`:
+
+```env
+MONGODB_URI=your_mongodb_atlas_connection_string
+STRIPE_SECRET_KEY=your_stripe_secret_key
+FRONTEND_URL=https://your-frontend-service-name.onrender.com
+ADMIN_URL=https://your-admin-service-name.onrender.com
+```
 
 ---
 
 ## 📦 API Endpoints
 
-### 🥗 Food Routes
-POST   /api/food/add  
-GET    /api/food/list  
-POST   /api/food/remove  
+### Food
+- `POST /api/food/add`
+- `GET /api/food/list`
+- `POST /api/food/remove`
 
-### 🛒 Cart Routes
-POST   /api/cart/add  
-POST   /api/cart/remove  
+### Cart
+- `POST /api/cart/add`
+- `POST /api/cart/remove`
 
-### 📦 Order Routes
-POST   /api/order/place  
-POST   /api/order/place-cod  
-POST   /api/order/verify  
-POST   /api/order/userorders  
-GET    /api/order/list  
-POST   /api/order/status  
-
----
-
-## ⚙️ Installation & Setup
-
-### 1️⃣ Clone Repository
-git clone https://github.com/shivam3687/Online_Food_Ordering.git  
-cd Online_Food_Ordering  
+### Orders
+- `POST /api/order/place`
+- `POST /api/order/place-cod`
+- `POST /api/order/verify`
+- `POST /api/order/userorders`
+- `GET /api/order/list`
+- `POST /api/order/status`
 
 ---
 
-### 2️⃣ Backend Setup
-cd Backend  
-npm install  
-npm run dev  
+## ⚠️ Notes and Troubleshooting
 
-Create .env file in Backend:
-
-PORT=4000  
-MONGODB_URI=your_mongodb_connection_string  
-JWT_SECRET=your_secret_key  
-STRIPE_SECRET_KEY=your_stripe_secret_key  
+- `uploads/` is served from the backend but Render filesystem is ephemeral. For production, use Cloudinary or another cloud storage for uploaded images.
+- If food items do not display, verify that MongoDB Atlas has data and the backend returns items from `/api/food/list`.
+- If CORS blocks requests, ensure `FRONTEND_URL` and `ADMIN_URL` are set correctly in the backend env.
 
 ---
 
-### 3️⃣ Frontend Setup
-cd Frontend  
-npm install  
-npm run dev  
+## 📌 Helpful Tips
+
+- Use `Frontend/.env.example` and `admin/.env.example` as templates.
+- Do not commit `.env` files — `.gitignore` already excludes them.
+- Deploy backend first, then set frontend/admin `VITE_BACKEND_URL` to the backend's Render URL.
 
 ---
 
-### 4️⃣ Admin Panel Setup
-cd admin  
-npm install  
-npm run dev  
+## 💡 Recommended Improvements
+
+- Move file uploads to Cloudinary or S3
+- Add better error handling and validation
+- Improve admin UI for order filtering
+- Add user profile and address management
 
 ---
 
-## 🗄️ Database Schema
+## 🧾 License
 
-### 📦 Order Schema Includes:
-- userId
-- items
-- amount
-- address
-- status
-- payment
-- date
+This project is provided as-is for learning and deployment practice.
 
----
-
-## 📸 Screenshots
-
-Add screenshots inside /screenshots folder:
-
-/screenshots/home.png  
-/screenshots/cart.png  
-/screenshots/orders.png  
-
----
-
-## 🎯 Highlights
-
-✔️ Full-stack MERN architecture  
-✔️ RESTful API design  
-✔️ Secure authentication system  
-✔️ Stripe payment integration  
-✔️ Dynamic cart functionality  
-✔️ Admin dashboard control  
-✔️ Image upload support  
-✔️ Scalable backend structure  
-
----
-
-## 🧠 Learning Outcomes
-
-- End-to-end full-stack development
-- Payment gateway integration (Stripe)
-- REST API design & testing
-- MongoDB schema design
-- Authentication & authorization
-- Debugging real-world applications
-
----
-
-## 🚀 Future Enhancements
-
-- 💳 Razorpay integration
 - 📧 Email notifications
 - 📊 Admin analytics dashboard
 - ☁️ Deployment on AWS / Render
